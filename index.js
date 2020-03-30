@@ -15,7 +15,7 @@ let uang = [];
 for (const key in moneyStocks) {
   uang.push(+key);
 }
-for (let i = 0; i < uang.length - 1; i++) {
+for (let i = 0; i < uang.length; i++) {
   for (let j = i + 1; j < uang.length; j++) {
     if (uang[i] < uang[j]) {
       let swap = uang[i];
@@ -24,12 +24,12 @@ for (let i = 0; i < uang.length - 1; i++) {
     }
   }
 }
-console.log(uang);
+// console.log(uang);
 
 function getMoneyChange(mauDiTukar) {
   let obj = {};
   for (let i = 0; i < uang.length; i++) {
-    while (moneyStocks[uang[i]] != 0 && mauDiTukar - uang[i] >= 0) {
+    while (moneyStocks[uang[i]] !== 0 && mauDiTukar - uang[i] >= 0) {
       if (!obj[uang[i]]) {
         obj[uang[i]] = 0;
       }
@@ -39,16 +39,27 @@ function getMoneyChange(mauDiTukar) {
     }
   }
 
-  // console.log(obj);
 
   if (mauDiTukar != 0) {
     for (const key in obj) {
-      let sample = +key;
-      moneyStocks.sample += obj[key];
+      let sample = key;
+      moneyStocks[sample] += obj[key];
     }
     console.log('Maaf uang kembalian tidak cukup');
+  } else {
+    let bigger = Object.keys(obj).sort((a, b) => b - a);
+    for (let i = 0; i < bigger.length; i++) {
+      for (const key in obj) {
+        if (key === bigger[i]) {
+          console.log(`${key} ${obj[key]} lembar`);
+        }
+      }
+    }
   }
+
 }
+
+
 //AKHIR DARI BAGIAN DEBUG
 
 console.log('CASE 1:\n----------------');
@@ -85,10 +96,10 @@ console.log('');
 console.log('CASE 5:\n----------------');
 getMoneyChange(400);
     /*
-    Maaf uang kembalian tidak cukup
+Maaf uang kembalian tidak cukup
 */
-    // console.log('');
-    // console.log(moneyStocks);
+    console.log('');
+    console.log(moneyStocks);
 /*
 { '500': 5,
     '1000': 0,
