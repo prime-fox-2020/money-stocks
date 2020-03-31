@@ -24,24 +24,28 @@ for (let i = 0; i < uang.length - 1; i++) {
     }
   }
 }
-console.log(uang);
 
 function getMoneyChange(mauDiTukar) {
   let obj = {};
+  let total = 0;
+  for (let money in moneyStocks) { // Menghitung total stock uang
+    total += (+money * moneyStocks[money])
+  }
   for (let i = 0; i < uang.length; i++) {
-    while (moneyStocks[uang[i]] != 0 && mauDiTukar - uang[i] >= 0) {
+    while (moneyStocks[uang[i]] != 0 && mauDiTukar - uang[i] >= 0 && total >= mauDiTukar) { // Hanya jika total stock > yg mau ditukar
       if (!obj[uang[i]]) {
         obj[uang[i]] = 0;
       }
       moneyStocks[uang[i]] -= 1;
-      mauDiTukar -= uang[i];
       obj[uang[i]] += 1;
+      mauDiTukar -= uang[i];
+      debugger;
+      if (mauDiTukar - uang[i] < 0 || moneyStocks[uang[i]] == 0) { // Jika pecahan uang lebih besar dari yang mau ditukar atau pecahan uang di stock habis
+        console.log(`${uang[i]} ${obj[uang[i]]} lembar`);
+      }
     }
   }
-
-  // console.log(obj);
-
-  if (mauDiTukar != 0) {
+  if (mauDiTukar != 0 || total < mauDiTukar) { // Atau total stock kurang
     for (const key in obj) {
       let sample = +key;
       moneyStocks.sample += obj[key];
@@ -84,11 +88,11 @@ getMoneyChange(100000);
 console.log('');
 console.log('CASE 5:\n----------------');
 getMoneyChange(400);
-    /*
+/*
     Maaf uang kembalian tidak cukup
 */
-    // console.log('');
-    // console.log(moneyStocks);
+console.log('');
+console.log(moneyStocks);
 /*
 { '500': 5,
     '1000': 0,
