@@ -9,6 +9,7 @@ const moneyStocks = {
   500: 5
 };
 
+
 //MULAI BAGIAN CODE UNTUK DEBUG
 let uang = [];
 
@@ -44,9 +45,19 @@ function getMoneyChange(mauDiTukar) {
   if (mauDiTukar != 0) {
     for (const key in obj) {
       let sample = +key;
-      moneyStocks.sample += obj[key];
+      moneyStocks[sample] += obj[key];
     }
     console.log('Maaf uang kembalian tidak cukup');
+  } else {
+    let sort = Object.keys(obj).sort((a, b) => b - a)
+    
+    for(let i=0; i<sort.length; i++){
+      for(const key in obj){
+        if(key === sort[i]){
+          console.log(`${key} ${obj[key]} lembar`)
+        }
+      }
+    }
   }
 }
 //AKHIR DARI BAGIAN DEBUG
