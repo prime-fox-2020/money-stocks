@@ -29,24 +29,29 @@ console.log(uang);
 function getMoneyChange(mauDiTukar) {
   let obj = {};
   for (let i = 0; i < uang.length; i++) {
-    while (moneyStocks[uang[i]] != 0 && mauDiTukar - uang[i] >= 0) {
+    while (moneyStocks[uang[i]] !== 0 && mauDiTukar - uang[i] >= 0) {
       if (!obj[uang[i]]) {
-        obj[uang[i]] = 0;
+        obj[uang[i]] = 1;
       }
+      else obj[uang[i]] += 1;
       moneyStocks[uang[i]] -= 1;
       mauDiTukar -= uang[i];
-      obj[uang[i]] += 1;
     }
   }
 
   // console.log(obj);
 
-  if (mauDiTukar != 0) {
+  if (mauDiTukar !== 0) {
     for (const key in obj) {
       let sample = +key;
-      moneyStocks.sample += obj[key];
+      moneyStocks[sample] += obj[key];
     }
     console.log('Maaf uang kembalian tidak cukup');
+  }
+  else {
+    for (const key in obj){
+      console.log(key + ' ' + obj[key] + ' lembar');
+    }
   }
 }
 //AKHIR DARI BAGIAN DEBUG
