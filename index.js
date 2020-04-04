@@ -11,7 +11,6 @@ const moneyStocks = {
 
 //MULAI BAGIAN CODE UNTUK DEBUG
 let uang = [];
-
 for (const key in moneyStocks) {
   uang.push(+key);
 }
@@ -25,7 +24,6 @@ for (let i = 0; i < uang.length - 1; i++) {
   }
 }
 console.log(uang);
-
 function getMoneyChange(mauDiTukar) {
   let obj = {};
   for (let i = 0; i < uang.length; i++) {
@@ -38,15 +36,22 @@ function getMoneyChange(mauDiTukar) {
       obj[uang[i]] += 1;
     }
   }
-
-  // console.log(obj);
-
+  console.log(obj);
   if (mauDiTukar != 0) {
     for (const key in obj) {
       let sample = +key;
-      moneyStocks.sample += obj[key];
+      moneyStocks[sample] += obj[key];
     }
     console.log('Maaf uang kembalian tidak cukup');
+  } else {
+    let sort = Object.keys(obj).sort((a, b) => b - a)
+    for (let i = 0; i < sort.length; i++) {
+      for (const key in obj) {
+        if (key === sort[i]) {
+          console.log(`${key} ${obj[key]} lembar`)
+        }
+      }
+    }
   }
 }
 //AKHIR DARI BAGIAN DEBUG
@@ -85,7 +90,7 @@ console.log('');
 console.log('CASE 5:\n----------------');
 getMoneyChange(400);
     /*
-    Maaf uang kembalian tidak cukup
+Maaf uang kembalian tidak cukup
 */
     // console.log('');
     // console.log(moneyStocks);
