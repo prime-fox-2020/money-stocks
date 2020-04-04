@@ -24,30 +24,53 @@ for (let i = 0; i < uang.length - 1; i++) {
     }
   }
 }
-console.log(uang);
+// console.log(uang);
 
 function getMoneyChange(mauDiTukar) {
-  let obj = {};
-  for (let i = 0; i < uang.length; i++) {
-    while (moneyStocks[uang[i]] != 0 && mauDiTukar - uang[i] >= 0) {
-      if (!obj[uang[i]]) {
-        obj[uang[i]] = 0;
+  //mengubah obj menjadi arr
+  const stock = Object.entries(moneyStocks)
+
+  //ketersediaan uang
+  let totalUang = 0
+  for (let i = 0; i < stock.length; i++) {
+    totalUang += stock[i][0] * stock[i][1];
+  }
+  // console.log('totalUang: ', totalUang);
+  // console.log('uang: ', uang);
+
+  //syarat mencari kembalian di jalankan
+  if (totalUang < mauDiTukar) {
+    return console.log(`Maaf uang kembalian tidak cukup`)
+  } else {
+    let obj = {};
+    for (let i = 0; i < uang.length; i++) {
+      while (moneyStocks[uang[i]] != 0 && mauDiTukar - uang[i] >= 0) {
+        if (!obj[uang[i]]) {
+          obj[uang[i]] = 0;
+        }
+        moneyStocks[uang[i]] -= 1;
+        mauDiTukar -= uang[i];
+        obj[uang[i]] += 1;
       }
-      moneyStocks[uang[i]] -= 1;
-      mauDiTukar -= uang[i];
-      obj[uang[i]] += 1;
+    }
+    // console.log(obj);
+
+    kembalian = Object.entries(obj)
+    // console.log('kembalian: ', kembalian);
+    for (let i = kembalian.length - 1; i >= 0; i--) {
+      console.log(`${kembalian[i][0]} ${kembalian[i][1]} lembar`);
+    }
+
+    if (mauDiTukar != 0) {
+      for (const key in obj) {
+        let sample = +key;
+        moneyStocks.sample += obj[key];
+      }
+      console.log('Maaf uang kembalian tidak cukup');
     }
   }
 
-  // console.log(obj);
 
-  if (mauDiTukar != 0) {
-    for (const key in obj) {
-      let sample = +key;
-      moneyStocks.sample += obj[key];
-    }
-    console.log('Maaf uang kembalian tidak cukup');
-  }
 }
 //AKHIR DARI BAGIAN DEBUG
 
@@ -85,7 +108,7 @@ console.log('');
 console.log('CASE 5:\n----------------');
 getMoneyChange(400);
     /*
-    Maaf uang kembalian tidak cukup
+Maaf uang kembalian tidak cukup
 */
     // console.log('');
     // console.log(moneyStocks);
