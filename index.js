@@ -24,7 +24,6 @@ for (let i = 0; i < uang.length - 1; i++) {
     }
   }
 }
-console.log(uang);
 
 function getMoneyChange(mauDiTukar) {
   let obj = {};
@@ -44,10 +43,19 @@ function getMoneyChange(mauDiTukar) {
   if (mauDiTukar != 0) {
     for (const key in obj) {
       let sample = +key;
-      moneyStocks.sample += obj[key];
+      moneyStocks[sample] += obj[key];
     }
     console.log('Maaf uang kembalian tidak cukup');
-  }
+  } else {
+    let sorted = Object.keys(obj).sort((a, b) => b - a);
+    for (let i = 0; i < sorted.length; i++) {
+      for (let key in obj) {
+        if (key == sorted[i]) {
+          console.log(`${key} ${obj[key]} lembar`);
+        }
+      }
+    }
+}
 }
 //AKHIR DARI BAGIAN DEBUG
 
