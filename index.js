@@ -15,6 +15,7 @@ let uang = [];
 for (const key in moneyStocks) {
   uang.push(+key);
 }
+// console.log(uang);
 for (let i = 0; i < uang.length - 1; i++) {
   for (let j = i + 1; j < uang.length; j++) {
     if (uang[i] < uang[j]) {
@@ -24,7 +25,7 @@ for (let i = 0; i < uang.length - 1; i++) {
     }
   }
 }
-console.log(uang);
+// console.log(uang);
 
 function getMoneyChange(mauDiTukar) {
   let obj = {};
@@ -40,13 +41,18 @@ function getMoneyChange(mauDiTukar) {
   }
 
   // console.log(obj);
-
+  
   if (mauDiTukar != 0) {
     for (const key in obj) {
       let sample = +key;
-      moneyStocks.sample += obj[key];
+      moneyStocks[sample] += obj[key];
     }
     console.log('Maaf uang kembalian tidak cukup');
+  }else{
+    objToArray = Object.keys(obj)
+    for (let i = objToArray.length-1; i >= 0; i--) {
+      console.log(`${objToArray[i]} ${obj[objToArray[i]]} lembar`);
+    }
   }
 }
 //AKHIR DARI BAGIAN DEBUG
@@ -87,8 +93,8 @@ getMoneyChange(400);
     /*
     Maaf uang kembalian tidak cukup
 */
-    // console.log('');
-    // console.log(moneyStocks);
+    console.log('');
+    console.log(moneyStocks);
 /*
 { '500': 5,
     '1000': 0,
