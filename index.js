@@ -10,43 +10,49 @@ const moneyStocks = {
 };
 
 //MULAI BAGIAN CODE UNTUK DEBUG
-let uang = [];
+let money = [];
 
 for (const key in moneyStocks) {
-  uang.push(+key);
+  money.push(Number(key))
 }
-for (let i = 0; i < uang.length - 1; i++) {
-  for (let j = i + 1; j < uang.length; j++) {
-    if (uang[i] < uang[j]) {
-      let swap = uang[i];
-      uang[i] = uang[j];
-      uang[j] = swap;
+for (let i = 0; i < money.length; i++) {
+  for (let j = 0; j < money.length-1; j++) {
+    if (money[j] < money[j+1]) {
+      let temp = money[j]
+      money[j] = money[j+1]
+      money[j+1] = temp
     }
   }
 }
-console.log(uang);
+console.log(money);
 
-function getMoneyChange(mauDiTukar) {
-  let obj = {};
-  for (let i = 0; i < uang.length; i++) {
-    while (moneyStocks[uang[i]] != 0 && mauDiTukar - uang[i] >= 0) {
-      if (!obj[uang[i]]) {
-        obj[uang[i]] = 0;
+function getMoneyChange(jumlah) {
+  let temp = {};
+  for (let i = 0; i < money.length; i++) {
+    while (moneyStocks[money[i]] != 0 && jumlah - money[i] >= 0) {
+      if (temp[money[i]]==undefined) {
+        temp[money[i]] = 0
+      }else{
+      temp[money[i]] += 1
+      moneyStocks[money[i]] -= 1
+      jumlah -= money[i]
+      
       }
-      moneyStocks[uang[i]] -= 1;
-      mauDiTukar -= uang[i];
-      obj[uang[i]] += 1;
     }
+
   }
-
-  // console.log(obj);
-
-  if (mauDiTukar != 0) {
-    for (const key in obj) {
-      let sample = +key;
-      moneyStocks.sample += obj[key];
+  let newObj = Object.keys(temp).sort((a,b) => {return b - a})
+  if (jumlah != 0) {
+    for (const key in temp) {
+      let angka = +key;
+      moneyStocks[angka] += temp[key];
     }
     console.log('Maaf uang kembalian tidak cukup');
+  }
+  else{
+    for(let i = 0; i < newObj.length; i++){
+      console.log(`${newObj[i]} ${temp[newObj[i]]} lembar`)
+    }
   }
 }
 //AKHIR DARI BAGIAN DEBUG
