@@ -44,11 +44,11 @@ function getMoneyChange(mauDiTukar) {
   if (mauDiTukar != 0) {
     for (let key in obj) {
       let sample = +key;
-      moneyStocks[sample] = obj[key];
+      moneyStocks[sample] = obj[key]; //from moneyStocks.sample to moneyStocks[sample]
     }
     console.log('Maaf uang kembalian tidak cukup');
   }
-  else {
+  else { //add show money change
     sortedObj = Object.keys(obj).sort((a,b) => b-a)
     for(let key of sortedObj) console.log(key, obj[key], 'lembar')
   }
