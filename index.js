@@ -13,7 +13,7 @@ const moneyStocks = {
 let uang = [];
 
 for (const key in moneyStocks) {
-  uang.push(+key);
+  uang.push(+key); //from +key to key
 }
 for (let i = 0; i < uang.length - 1; i++) {
   for (let j = i + 1; j < uang.length; j++) {
@@ -42,11 +42,15 @@ function getMoneyChange(mauDiTukar) {
   // console.log(obj);
 
   if (mauDiTukar != 0) {
-    for (const key in obj) {
+    for (let key in obj) {
       let sample = +key;
-      moneyStocks.sample += obj[key];
+      moneyStocks[sample] = obj[key]; //from moneyStocks.sample to moneyStocks[sample]
     }
     console.log('Maaf uang kembalian tidak cukup');
+  }
+  else { //add show money change
+    sortedObj = Object.keys(obj).sort((a,b) => b-a)
+    for(let key of sortedObj) console.log(key, obj[key], 'lembar')
   }
 }
 //AKHIR DARI BAGIAN DEBUG
@@ -87,8 +91,8 @@ getMoneyChange(400);
     /*
     Maaf uang kembalian tidak cukup
 */
-    // console.log('');
-    // console.log(moneyStocks);
+    console.log('');
+    console.log(moneyStocks);
 /*
 { '500': 5,
     '1000': 0,
