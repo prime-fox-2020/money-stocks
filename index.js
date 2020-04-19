@@ -48,6 +48,12 @@ function getMoneyChange(mauDiTukar) {
     }
     console.log('Maaf uang kembalian tidak cukup');
   }
+  else {
+    let newObj = Object.keys(obj).sort((a,b) => {return b-a})
+    for (let i = 0; i < newObj.length; i++) {
+      console.log(`${newObj[i]} ${obj[newObj[i]]} lembar`);
+    }
+  }
 }
 //AKHIR DARI BAGIAN DEBUG
 
