@@ -1,54 +1,62 @@
 //Diberikan program untuk mengubah
 const moneyStocks = {
-  100000: 1,
-  50000: 2,
-  20000: 4,
-  10000: 5,
-  5000: 5,
-  1000: 10,
-  500: 5
+	100000: 1,
+	50000: 2,
+	20000: 4,
+	10000: 5,
+	5000: 5,
+	1000: 10,
+	500: 5
 };
 
 //MULAI BAGIAN CODE UNTUK DEBUG
 let uang = [];
 
 for (const key in moneyStocks) {
-  uang.push(+key);
+	uang.push(key);
 }
-for (let i = 0; i < uang.length - 1; i++) {
-  for (let j = i + 1; j < uang.length; j++) {
-    if (uang[i] < uang[j]) {
-      let swap = uang[i];
-      uang[i] = uang[j];
-      uang[j] = swap;
-    }
-  }
+
+for (let i = 0; i < uang.length; i++) {
+	for (let j = 0; j < uang.length - 1; j++) {
+		if (Number(uang[j]) < Number(uang[j + 1])) {
+			let swap = uang[j];
+			uang[j] = Number(uang[j + 1]);
+			uang[j + 1] = Number(swap);
+		}
+	}
 }
-console.log(uang);
+
 
 function getMoneyChange(mauDiTukar) {
-  let obj = {};
-  for (let i = 0; i < uang.length; i++) {
-    while (moneyStocks[uang[i]] != 0 && mauDiTukar - uang[i] >= 0) {
-      if (!obj[uang[i]]) {
-        obj[uang[i]] = 0;
-      }
-      moneyStocks[uang[i]] -= 1;
-      mauDiTukar -= uang[i];
-      obj[uang[i]] += 1;
-    }
-  }
+	let obj = {};
+	for (let i = 0; i < uang.length; i++) {
+		while (moneyStocks[uang[i]] != 0 && mauDiTukar - uang[i] >= 0) {
+			if (!obj[uang[i]]) {
+				obj[uang[i]] = 0;
+			}
+			moneyStocks[uang[i]] -= 1;
+			mauDiTukar -= uang[i];
+			obj[uang[i]] += 1;
+		}
+	}
 
-  // console.log(obj);
+	 
 
-  if (mauDiTukar != 0) {
-    for (const key in obj) {
-      let sample = +key;
-      moneyStocks.sample += obj[key];
+	if (mauDiTukar != 0) {
+		for (const key in obj) {
+			let sample = key;
+			moneyStocks[sample] += obj[key];
+		}
+		console.log('Maaf uang kembalian tidak cukup');
+  }else{
+    let hasil = Object.keys(obj).sort((a,b) => {return b - a})
+    for(let i = 0; i < hasil.length; i++){
+      console.log(`${hasil[i]} ${obj[hasil[i]]} lembar`)
     }
-    console.log('Maaf uang kembalian tidak cukup');
   }
 }
+  
+
 //AKHIR DARI BAGIAN DEBUG
 
 console.log('CASE 1:\n----------------');
@@ -84,11 +92,11 @@ getMoneyChange(100000);
 console.log('');
 console.log('CASE 5:\n----------------');
 getMoneyChange(400);
-    /*
+/*
     Maaf uang kembalian tidak cukup
 */
-    // console.log('');
-    // console.log(moneyStocks);
+console.log('');
+console.log(moneyStocks);
 /*
 { '500': 5,
     '1000': 0,
