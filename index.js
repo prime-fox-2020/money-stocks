@@ -44,9 +44,14 @@ function getMoneyChange(mauDiTukar) {
   if (mauDiTukar != 0) {
     for (const key in obj) {
       let sample = +key;
-      moneyStocks.sample += obj[key];
+      moneyStocks[sample] += obj[key];
     }
     console.log('Maaf uang kembalian tidak cukup');
+  } else {
+    let temp = Object.keys(obj).sort((a, b) => b - a);
+    for (let i = 0; i < temp.length; i++) {
+      console.log(`${temp[i]} ${obj[temp[i]]} lembar`);
+    }
   }
 }
 //AKHIR DARI BAGIAN DEBUG
